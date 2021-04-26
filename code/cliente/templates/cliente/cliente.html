@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Criando cliente</title>
+</head>
+<body>
+<form action="
+{% if cliente %}
+{% url 'cliente:cliente' cliente.id %}
+{% else %}
+{% url 'cliente:cliente_novo'  %}
+{% endif %}"
+      method="post">
+    <h2>Cliente {{ cliente.name }}</h2>
+    {% csrf_token %}
+    {{ form_client }}
+  <input type="hidden" name="form" value="cliente">
+    <input type="submit" value="Enviar">
+</form>
+
+{% if cliente %}
+<form action="{% url 'cliente:cliente' cliente.id  %}" method="post">
+    <h2>Email</h2>
+    {% csrf_token %}
+    {{ form_email }}
+    <input type="hidden" name="form" value="email">
+    <input type="submit" value="Enviar">
+</form>
+<ul>
+    {% for email in cliente.email_set.all %}
+    <li>{{ email.email }} - <a href="{% url 'cliente:deletar_email' email.id  %} ">deletar</a></li>
+    {%endfor%}
+</ul>
+<form action="{% url 'cliente:cliente' cliente.id  %}" method="post">
+    <h2>Telephone</h2>
+    {% csrf_token %}
+    {{ form_telephone }}
+    <input type="hidden" name="form" value="telephone">
+    <input type="submit" value="Enviar">
+</form>
+<ul>
+    {% for telephone in cliente.telephone_set.all %}
+    <li>{{ telephone }} - <a href="{% url 'cliente:deletar_telephone' telephone.id  %} ">deletar</a></li>
+    {%endfor%}
+</ul>
+{% endif %}
+</body>
+</html>

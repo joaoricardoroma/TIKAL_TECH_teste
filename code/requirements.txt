@@ -1,0 +1,5 @@
+Django==3.2
+ipdb==0.13.7
+python-dotenv==0.17.0
+psycopg2==2.8.6
+ipdb==0.13.7

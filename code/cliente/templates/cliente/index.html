@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+    <style>
+        td, th {
+  border: 2px solid #000000;
+  text-align: center;
+  padding: 8px;
+}
+    </style>
+</head>
+<body>
+<h2>
+    Clientes
+</h2>
+<h3>
+    <a href="{% url 'cliente:cliente_novo' %}">Criando cliente</a>
+</h3>
+<div>
+<table>
+    <thead>
+    <tr>
+        <th>
+            Nome
+        </th>
+        <th>
+            RG
+        </th>
+        <th>
+            CPF
+        </th>
+        <th>
+            Anivesario
+        </th>
+        <th>
+            Genero
+        </th>
+        <th>
+            Numero
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Editar
+        </th>
+        <th>
+            Delete
+        </th>
+    </tr>
+    </thead>
+    {% for cliente in clientes %}
+    <tr>
+        <td>
+            {{ cliente.name }}
+        </td>
+        <td>
+            {{ cliente.rg }}
+        </td>
+        <td>
+            {{ cliente.cpf }}
+        </td>
+        <td>
+            {{ cliente.birth_date }}
+        </td>
+        <td>
+            {{ cliente.gender }}
+        </td>
+        <td>
+            {% for telephone in cliente.telephone_set.all %}
+            {{ telephone.number }}
+            {%endfor%}
+        </td>
+        <td>
+            {% for email in cliente.email_set.all %}
+            {{ email.email }}
+            {%endfor%}
+        </td>
+         <td>
+            <a href="{% url 'cliente:cliente' cliente.id %}">Editar</a>
+        </td>
+        <td>
+             <a href="{% url 'cliente:deletar_cliente' cliente.id %}">Excluir</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+</div>
+</body>
+</html>
